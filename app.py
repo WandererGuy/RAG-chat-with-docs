@@ -114,35 +114,35 @@ def generate_response(question, relevant_chunks):
 if __name__ == "__main__":
     # print("==== Starting app... ====")
 
-    # # Load documents from the directory
-    # directory_path = "./news_articles"
-    # documents = load_documents_from_directory(directory_path)
+    # Load documents from the directory
+    directory_path = "./news_articles"
+    documents = load_documents_from_directory(directory_path)
 
-    # print(f"Loaded {len(documents)} documents")
-    # # Split documents into chunks
-    # chunked_documents = []
-    # for doc in documents:
-    #     chunks = split_text(doc["text"])
-    #     print("==== Splitting docs into chunks ====")
-    #     for i, chunk in enumerate(chunks):
-    #         chunked_documents.append({"id": f"{doc['id']}_chunk{i+1}", "text": chunk})
+    print(f"Loaded {len(documents)} documents")
+    # Split documents into chunks
+    chunked_documents = []
+    for doc in documents:
+        chunks = split_text(doc["text"])
+        print("==== Splitting docs into chunks ====")
+        for i, chunk in enumerate(chunks):
+            chunked_documents.append({"id": f"{doc['id']}_chunk{i+1}", "text": chunk})
 
-    # # print(f"Split documents into {len(chunked_documents)} chunks")
+    # print(f"Split documents into {len(chunked_documents)} chunks")
 
 
-    # # Generate embeddings for the document chunks
-    # for doc in chunked_documents:
-    #     print("==== Generating embeddings... ====")
-    #     doc["embedding"] = get_openai_embedding(doc["text"])
+    # Generate embeddings for the document chunks
+    for doc in chunked_documents:
+        print("==== Generating embeddings... ====")
+        doc["embedding"] = get_openai_embedding(doc["text"])
 
-    # # print(doc["embedding"])
+    # print(doc["embedding"])
 
-    # # Upsert documents with embeddings into Chroma
-    # for doc in chunked_documents:
-    #     print("==== Inserting chunks into db;;; ====")
-    #     collection.upsert(
-    #         ids=[doc["id"]], documents=[doc["text"]], embeddings=[doc["embedding"]]
-    #     )
+    # Upsert documents with embeddings into Chroma
+    for doc in chunked_documents:
+        print("==== Inserting chunks into db;;; ====")
+        collection.upsert(
+            ids=[doc["id"]], documents=[doc["text"]], embeddings=[doc["embedding"]]
+        )
 
     # Example query
     # query_documents("tell me about AI replacing TV writers strike.")
